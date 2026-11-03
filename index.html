@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="description" content="Accology CRM · Accounting Science. Unlock the power of the information you already hold.">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32.png">
+  <title>Accology · Accounting Science</title>
+  <link rel="stylesheet" href="/static/accology_public.css">
+</head>
+<body class="ac-landing">
+  <a class="ac-skip" href="#main">Skip to content</a>
+
+  <header class="ac-nav">
+    <a class="ac-brand" href="/" aria-label="Accology home">
+      
+      <svg class="ac-cube" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g stroke="#FFFFFF" stroke-width="0.55" stroke-linejoin="miter" stroke-linecap="square">
+          <path d="M32 5L55 18V46L32 59L9 46V18L32 5Z"/>
+          <path d="M32 5V32"/>
+          <path d="M32 32L9 18"/>
+          <path d="M32 32L55 18"/>
+          <path d="M32 32V59"/>
+          <path d="M9 46L32 32L55 46"/>
+        </g>
+        
+        <path d="M32 15.5L46 23.5V40.5L32 48.5L18 40.5V23.5L32 15.5Z" fill="#00E5FF"/>
+        <g stroke="#FFFFFF" stroke-width="0.55" stroke-linejoin="miter" stroke-linecap="square">
+          <path d="M32 15.5L46 23.5V40.5L32 48.5L18 40.5V23.5L32 15.5Z"/>
+          <path d="M18 23.5L32 32"/>
+          <path d="M46 23.5L32 32"/>
+          <path d="M32 32V48.5"/>
+        </g>
+      </svg>
+      <span class="ac-brand-text">
+        <span class="ac-brand-word"><span class="ac-acc">Acc</span><span class="ac-ology">ology</span></span>
+        <hr class="ac-brand-rule" aria-hidden="true">
+        <span class="ac-brand-tag">Accounting Science</span>
+      </span>
+    </a>
+  </header>
+
+  <main id="main" class="ac-shell" style="grid-template-columns:1fr">
+    <section class="ac-hero-col" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="ac-hero-title">
+        Unlock the power<br>
+        of the information<br>
+        you already hold.
+      </h1>
+      <p class="ac-hero-tagline">Think Inside the Box.</p>
+      <blockquote class="ac-quote">
+        “Reports that say that something hasn’t happened are always interesting to me, because as we know, there are known knowns; there are things we know we know. We also know there are known unknowns; that is to say we know there are some things we do not know. But there are also unknown unknowns—the ones we don’t know we don’t know.”
+      </blockquote>
+      <cite class="ac-quote-cite">Donald Rumsfeld, US Secretary of Defence, February 12 2002.</cite>
+      <p class="ac-know-line">Let us put you in the Know</p>
+      <a class="ac-cta" href="#contact">Request a consultation</a>
+    </section>
+  </main>
+
+  <section class="ac-contact-band" id="contact" aria-labelledby="contact-heading">
+    <div class="ac-contact-panel">
+      <h2 id="contact-heading">Contact</h2>
+      
+      <p class="ac-muted">Send a short note. The team will respond.</p>
+      
+      <form id="ac-enquiry-form" method="post" action="https://accology-enquiry.accology.workers.dev/enquiry" novalidate>
+        <div class="ac-hp" aria-hidden="true">
+          <label for="company_url">Company website</label>
+          <input id="company_url" type="text" name="company_url" tabindex="-1" autocomplete="off">
+        </div>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required maxlength="200" value="" autocomplete="name">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required maxlength="200" value="" autocomplete="email">
+        <label for="company">Company (optional)</label>
+        <input id="company" name="company" type="text" maxlength="200" value="" autocomplete="organization">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" required maxlength="4000"></textarea>
+        <button class="ac-login-btn" type="submit" style="margin-top:1.15rem">Send</button>
+      </form>
+      
+    </div>
+  </section>
+
+  <footer class="ac-landing-footer">
+    © Accology CRM. All rights reserved.
+  </footer>
+
+<script>
+(function () {
+  try {
+    if (/(?:^|[?&])sent=(?:1|true|yes)\b/.test(location.search || '')) {
+      var panel = document.querySelector('.ac-contact-panel');
+      if (panel) {
+        panel.innerHTML = '<h2 id="contact-heading">Contact</h2>' +
+          '<p class="ac-success" role="status">Message received. A response will follow shortly.</p>';
+      }
+    }
+  } catch (e) {}
+})();
+</script>
+
+<script>
+(function () {
+  var form = document.getElementById('ac-enquiry-form');
+  if (!form) return;
+  var panel = form.closest('.ac-contact-panel') || form.parentElement;
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var hp = form.querySelector('[name="company_url"]');
+    if (hp && String(hp.value || '').trim()) {
+      showThanks();
+      return;
+    }
+    var fd = new FormData(form);
+    var body = {
+      name: String(fd.get('name') || '').trim(),
+      email: String(fd.get('email') || '').trim(),
+      company: String(fd.get('company') || '').trim(),
+      message: String(fd.get('message') || '').trim(),
+      company_url: String(fd.get('company_url') || '').trim()
+    };
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      if (!r.ok) throw new Error('send failed');
+      showThanks();
+    }).catch(function () {
+      if (btn) { btn.disabled = false; btn.textContent = 'Send'; }
+      var alert = panel.querySelector('.ac-login-alert');
+      if (!alert) {
+        alert = document.createElement('div');
+        alert.className = 'ac-login-alert';
+        alert.setAttribute('role', 'alert');
+        form.parentNode.insertBefore(alert, form);
+      }
+      alert.textContent = 'The message could not be sent. Email contact@accology.co.';
+    });
+  });
+  function showThanks() {
+    if (!panel) return;
+    panel.innerHTML = '<h2 id="contact-heading">Contact</h2>' +
+      '<p class="ac-success" role="status">Message received. A response will follow shortly.</p>';
+  }
+})();
+</script>
+
+  <!-- Cloudflare Web Analytics: leave commented until CF_TOKEN created in dashboard
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "CF_TOKEN"}'></script>
+  -->
+  <script>
+  (function () {
+    try {
+      var payload = JSON.stringify({
+        path: location.pathname || '/',
+        referrer: document.referrer || '',
+        host: location.host || ''
+      });
+      var url = 'https://accology-enquiry.accology.workers.dev/visit';
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }));
+      } else {
+        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
+      }
+    } catch (e) {}
+  })();
+  </script>
+</body>
+</html>

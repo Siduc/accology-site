@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <title>Contact · Accology</title>
+  <meta http-equiv="refresh" content="0;url=/#contact">
+  <link rel="canonical" href="/#contact">
+  <script>location.replace("/#contact");</script>
+</head>
+<body>
+  <p><a href="/#contact">Contact Accology</a></p>
+
+  <!-- Cloudflare Web Analytics: leave commented until CF_TOKEN created in dashboard
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "CF_TOKEN"}'></script>
+  -->
+  <script>
+  (function () {
+    try {
+      var payload = JSON.stringify({ path: location.pathname || '/', referrer: document.referrer || '', host: location.host || '' });
+      var url = 'https://accology-enquiry.accology.workers.dev/visit';
+      if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }));
+      else fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
+    } catch (e) {}
+  })();
+  </script>
+</body>
+</html>

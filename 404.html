@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32.png">
+  <title>Page not found · Accology</title>
+  <link rel="stylesheet" href="/static/accology_public.css">
+</head>
+<body class="ac-landing">
+  <header class="ac-nav">
+    <a class="ac-brand" href="/" aria-label="Accology home">
+      <svg class="ac-cube" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g stroke="#FFFFFF" stroke-width="0.55" stroke-linejoin="miter" stroke-linecap="square">
+          <path d="M32 5L55 18V46L32 59L9 46V18L32 5Z"/>
+          <path d="M32 5V32M32 32L9 18M32 32L55 18M32 32V59M9 46L32 32L55 46"/>
+        </g>
+        <path d="M32 15.5L46 23.5V40.5L32 48.5L18 40.5V23.5L32 15.5Z" fill="#00E5FF"/>
+        <g stroke="#FFFFFF" stroke-width="0.55" stroke-linejoin="miter" stroke-linecap="square">
+          <path d="M32 15.5L46 23.5V40.5L32 48.5L18 40.5V23.5L32 15.5Z"/>
+          <path d="M18 23.5L32 32"/><path d="M46 23.5L32 32"/><path d="M32 32V48.5"/>
+        </g>
+      </svg>
+      <span class="ac-brand-text">
+        <span class="ac-brand-word"><span class="ac-acc">Acc</span><span class="ac-ology">ology</span></span>
+        <hr class="ac-brand-rule" aria-hidden="true">
+        <span class="ac-brand-tag">Accounting Science</span>
+      </span>
+    </a>
+  </header>
+  <main class="ac-shell" style="grid-template-columns:1fr;padding:3rem 1.5rem">
+    <div>
+      <h1 class="ac-hero-title">Page not found</h1>
+      <p class="ac-muted">That address is not on this site.</p>
+      <p><a class="ac-cta" href="/">Back to Accology</a></p>
+    </div>
+  </main>
+  <footer class="ac-landing-footer">© Accology CRM. All rights reserved.</footer>
+  <!-- Cloudflare Web Analytics: leave commented until CF_TOKEN created in dashboard
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "CF_TOKEN"}'></script>
+  -->
+  <script>
+  (function () {
+    try {
+      var payload = JSON.stringify({ path: location.pathname || '/', referrer: document.referrer || '', host: location.host || '' });
+      var url = 'https://accology-enquiry.accology.workers.dev/visit';
+      if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }));
+      else fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
+    } catch (e) {}
+  })();
+  </script>
+</body>
+</html>
