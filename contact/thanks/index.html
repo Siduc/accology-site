@@ -2,24 +2,16 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
-  <title>Thank you · Accology</title>
-  <meta http-equiv="refresh" content="0;url=/?sent=1#contact">
-  <link rel="canonical" href="/?sent=1#contact">
-  <script>location.replace("/?sent=1#contact");</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Message received · Accology</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://accology.co/contact/">
+  <meta http-equiv="refresh" content="0;url=/contact/?sent=1#contact">
+  <script>location.replace("/contact/?sent=1#contact");</script>
 </head>
 <body>
-  <p><a href="/?sent=1#contact">Message received</a></p>
-
+  <p><a href="/contact/?sent=1#contact">Message received. Continue to Accology.</a></p>
+  <script src="/static/visit.js"></script>
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "596a7fa2be874c58994a6af9792bb890"}'></script>
-  <script>
-  (function () {
-    try {
-      var payload = JSON.stringify({ path: location.pathname || '/', referrer: document.referrer || '', host: location.host || '' });
-      var url = 'https://accology-enquiry.accology.workers.dev/visit';
-      if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }));
-      else fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
-    } catch (e) {}
-  })();
-  </script>
 </body>
 </html>
