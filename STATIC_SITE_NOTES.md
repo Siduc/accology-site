@@ -1,41 +1,34 @@
 # Accology static site notes
 
-## Public routes (from app/routers/website.py + main._PUBLIC_EXACT)
-- GET / → public_home (only real marketing HTML page)
-- GET /contact → 303 /#contact
-- GET /contact/thanks → 303 /?sent=1#contact
-- POST /contact → form handler
-- Also public but NOT marketing: /login, /logout, /health, /favicon.ico, /manifest.webmanifest, /sw.js, /demo/tour, OAuth callbacks, /static/*, /payroll/*, /approve/*, /pack/*, /portal/onboarding/*
+GitHub Pages serves this folder from `main`. Merging to `main` publishes accology.co. Review on a branch first.
 
-No privacy/terms/about/services public pages on live (those 303 to /login).
+## Pages
+- `/` home, with the consultation form (`#contact`)
+- `/services/` and one page per service
+- `/pricing/` draft guide fees. This is the only place amounts are written.
+- `/privacy/` draft UK GDPR notice, including the cookies note at `#cookies`
+- `/contact/` the same consultation form
+- `/contact/thanks/` redirects to `/contact/?sent=1#contact`
+- `/404.html`
 
-## /login neutralised
-Removed footer <a href="/login">Log in</a> (was only /login link outside the CRM login form).
-Embedded CRM login form kept visually; action set to # with onsubmit=return false (was POST /login).
-
-## Contact form fields
+## Consultation form
+Fields posted as JSON to `https://accology-enquiry.accology.workers.dev/enquiry`:
 - name (required)
 - email (required)
 - company (optional)
 - message (required, max 4000)
-- company_url (honeypot; if filled, old app treated as success without saving)
+- company_url (honeypot; if filled, the page shows the thank-you and does not send)
 
-Old POST /contact behaviour:
-- Validates name/email/message
-- create_prospect(..., source="Website", pipeline_status="new") → prospects table
-- notify_website_prospect → notifications table (type=website_prospect) + optional staff email if NOTIFY_WEBSITE_PROSPECT_EMAIL (SMTP to NOTIFY_ALERT_EMAIL/PRACTICE_EMAIL)
-- Redirect /?sent=1#contact
-- Thank-you copy: "Message received. A response will follow shortly."
+Thank-you copy: "Message received. A response will follow shortly."
+If sending fails: ask the visitor to email contact@accology.co.
 
-Static form: action=https://ENQUIRY_ENDPOINT/enquiry method=POST, submit via fetch JSON, shows same thank-you.
+## Visits and analytics
+- `static/visit.js` posts path, referrer and host to the enquiry worker `/visit`. It does not set a cookie.
+- Cloudflare Web Analytics beacon is on each page (cookieless, per Cloudflare's docs). Token unchanged.
 
-## site_visits (table site_visits)
-Columns: id, created_at, path, host, ip_hash, ua_kind
-record_visit on GET / for non-logged-in non-bot non-loopback browsers; ip_hash = sha256(ip|SESSION_SECRET)[:16]; ua_kind browser|bot.
+## Fonts
+Inter is self-hosted in `static/fonts/` (Latin, weights 400, 600, 700, SIL Open Font License). No Google Fonts request.
 
-## Dynamic content not staticised
-- CRM login / session / demo_available
-- Server-side visit recording
-- Prospect creation + email notify on enquiry (needs ENQUIRY_ENDPOINT)
-- Boot splash (_boot_*) present in repo templates but NOT on currently deployed live HTML (v=21 CSS, no accology_boot.js)
-- Google Fonts still loaded from fonts.googleapis.com via CSS @import
+## Not on this site
+The client portal (`/login` and the CRM) is not served from GitHub Pages. The footer has a placeholder until a portal URL is added.
+Phone, address, legal name, company number and professional body are placeholders. Do not copy them off the letterhead artwork until the owner confirms they should be public.
